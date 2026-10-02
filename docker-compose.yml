@@ -1,0 +1,13 @@
+services:
+  app:
+    build: .
+    image: pomodoro-spotify:local
+    # Same file `npm run dev` reads. Optional: without it the timer works and music stays off.
+    env_file:
+      - path: .env.local
+        required: false
+    # Spotify only accepts 127.0.0.1 (not "localhost") in development redirect URIs,
+    # so the app is published on 127.0.0.1:3000 and should be opened there.
+    ports:
+      - "127.0.0.1:3000:3000"
+    restart: unless-stopped
